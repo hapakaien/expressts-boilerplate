@@ -1,5 +1,6 @@
 dependencies:
   express: 4.17.1
+  helmet: 4.1.1
 devDependencies:
   '@tsconfig/node12': 1.0.7
   '@types/express': 4.17.8
@@ -1145,6 +1146,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-UqBRqi4ju7T+TqGNdqAO0PaSVGsDGJUBQvk9eUWNGRY1CFGDzYhLWoM7JQEemnlvVcv/YEmc2wNW8BC24EnUsw==
+  /helmet/4.1.1:
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-Avg4XxSBrehD94mkRwEljnO+6RZx7AGfk8Wa6K1nxaU+hbXlFOhlOIMgPfFqOYQB/dBCsTpootTGuiOG+CHiQA==
   /http-cache-semantics/4.1.0:
     dev: true
     resolution:
@@ -2223,6 +2230,7 @@ specifiers:
   eslint-config-prettier: ^6.12.0
   eslint-plugin-prettier: ^3.1.4
   express: ^4.17.1
+  helmet: ^4.1.1
   nodemon: ^2.0.4
   prettier: ^2.1.2
   ts-node: ^9.0.0
