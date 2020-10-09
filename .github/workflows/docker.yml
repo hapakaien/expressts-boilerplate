@@ -58,7 +58,7 @@ jobs:
 
       - name: Build image
         run: |
-            docker build . --file Dockerfile --tag "$IMAGE_NAME" \
+            docker build . --file Dockerfile --tag `$IMAGE_NAME` \
             --label org.opencontainers.image.title="${{ fromJson(steps.repo.outputs.result).name }}" \
             --label org.opencontainers.image.description="${{ fromJson(steps.repo.outputs.result).description }}" \
             --label org.opencontainers.image.url="${{ fromJson(steps.repo.outputs.result).html_url }}" \
