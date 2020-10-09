@@ -8,7 +8,7 @@ const PORT = process.env.PORT;
 app.use(helmet());
 app.use(compression());
 
-app.get('/', (req, res) => res.send('Yo, hello world!'));
+app.get('/', (req, res) => res.send('Yo!'));
 app.listen(PORT, () => {
 	console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 });
