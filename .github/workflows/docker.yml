@@ -59,14 +59,14 @@ jobs:
       - name: Build image
         run: |
             docker build . --file Dockerfile --tag $IMAGE_NAME --label \
-            org.opencontainers.image.title=${{ fromJson(steps.repo.outputs.result).name }} \
-            org.opencontainers.image.description=${{ fromJson(steps.repo.outputs.result).description }} \
-            org.opencontainers.image.url=${{ fromJson(steps.repo.outputs.result).html_url }} \
-            org.opencontainers.image.source=${{ fromJson(steps.repo.outputs.result).clone_url }} \
-            org.opencontainers.image.version=${{ steps.prep.outputs.version }} \
-            org.opencontainers.image.created=${{ steps.prep.outputs.created }} \
-            org.opencontainers.image.revision=${{ github.sha }} \
-            org.opencontainers.image.licenses=${{ fromJson(steps.repo.outputs.result).license.spdx_id }}  
+            org.opencontainers.image.title="${{ fromJson(steps.repo.outputs.result).name }}" \
+            org.opencontainers.image.description="${{ fromJson(steps.repo.outputs.result).description }}" \
+            org.opencontainers.image.url="${{ fromJson(steps.repo.outputs.result).html_url }}" \
+            org.opencontainers.image.source="${{ fromJson(steps.repo.outputs.result).clone_url }}" \
+            org.opencontainers.image.version="${{ steps.prep.outputs.version }}" \
+            org.opencontainers.image.created="${{ steps.prep.outputs.created }}" \
+            org.opencontainers.image.revision="${{ github.sha }}" \
+            org.opencontainers.image.licenses="${{ fromJson(steps.repo.outputs.result).license.spdx_id }}" 
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
