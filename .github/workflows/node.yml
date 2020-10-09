@@ -31,7 +31,7 @@ jobs:
       run: pnpm i --frozen-lockfile
     
     - name: Build
-    - run: pnpm build
+      run: pnpm build
   test:
     name: Tests
     runs-on: ubuntu-latest
