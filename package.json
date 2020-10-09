@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "app.js",
 	"scripts": {
-		"start": "nodemon app.ts",
+		"dev": "nodemon app.ts",
+		"start": "ts-node build/app.js",
 		"build": "tsc -p ./",
 		"lint": "eslint '*.{js,ts,tsx}' --quiet --fix",
 		"test": "cross-env NODE_ENV=test jest --testTimeout=10000"

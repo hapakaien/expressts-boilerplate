@@ -1,3 +1,25 @@
+FROM node:lts-alpine as build
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install pnpm
+RUN apk --no-cache add curl && \
+			curl -L https://unpkg.com/@pnpm/self-installer | node && \
+			pnpm config set store-dir ~/.pnpm-store
+
+# Install dependencies
+COPY package*.json ./
+COPY pnpm-*.yaml ./
+RUN pnpm i --frozen-lockfile
+
+# Bundle app source
+COPY . .
+
+# TypeScript
+RUN pnpm build
+
+
 FROM node:lts-alpine
 
 # Set ARG
@@ -10,23 +32,18 @@ ENV PORT=$PORT
 WORKDIR /usr/src/app
 
 # Install pnpm
-RUN apk --no-cache add curl
-RUN curl -L https://unpkg.com/@pnpm/self-installer | node
-RUN pnpm config set store-dir ~/.pnpm-store
+RUN apk --no-cache add curl && \
+			curl -L https://unpkg.com/@pnpm/self-installer | node && \
+			pnpm config set store-dir ~/.pnpm-store
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+# Install dependencies
 COPY package*.json ./
 COPY pnpm-*.yaml ./
+RUN pnpm i --frozen-lockfile -P && \
+			pnpm add --global pm2
 
-RUN pnpm i --frozen-lockfile
-
-# Bundle app source
-COPY . .
-
-# TypeScript
-RUN pnpm build
+# Copy builded code
+COPY --from=build /usr/src/app/build .
 
 EXPOSE $PORT
-CMD [ "pnpm", "start" ]
+CMD [ "pm2-runtime", "app.js" ]
