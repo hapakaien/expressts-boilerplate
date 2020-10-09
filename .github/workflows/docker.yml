@@ -58,11 +58,10 @@ jobs:
 
       - name: Build image
         run: |
-            docker build . --file Dockerfile --tag `$IMAGE_NAME` \
-            --label org.opencontainers.image.title="${{ fromJson(steps.repo.outputs.result).name }}" \
+            docker build . --file Dockerfile --tag $IMAGE_NAME --label org.opencontainers.image.title="${{ fromJson(steps.repo.outputs.result).name }}" \
             --label org.opencontainers.image.description="${{ fromJson(steps.repo.outputs.result).description }}" \
             --label org.opencontainers.image.url="${{ fromJson(steps.repo.outputs.result).html_url }}" \
-            --label org.opencontainers.image.source="${{ fromJson(steps.repo.outputs.result).clone_url }}" \
+            --label org.opencontainers.image.source="${{ fromJson(steps.repo.outputs.result).html_url }}" \
             --label org.opencontainers.image.version="${{ steps.prep.outputs.version }}" \
             --label org.opencontainers.image.created="${{ steps.prep.outputs.created }}" \
             --label org.opencontainers.image.revision="${{ github.sha }}" \
