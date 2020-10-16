@@ -2,7 +2,7 @@
 	"extends": "@tsconfig/node12/tsconfig.json",
 
 	"compilerOptions": {
-		"rootDir": "./",
+		"rootDir": "./src",
 		"outDir": "./build"
 	}
 }
