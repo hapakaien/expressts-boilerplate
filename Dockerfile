@@ -1,26 +1,43 @@
-FROM node:lts-alpine as build
-
-# Create app directory
-WORKDIR /usr/src/app
+# Build stage
+FROM docker.io/library/node:16-alpine as build
 
 # Install pnpm
-RUN apk --no-cache add curl && \
-			curl -L https://unpkg.com/@pnpm/self-installer | node && \
-			pnpm config set store-dir ~/.pnpm-store
+RUN npm install -g pnpm@latest
+
+# Set workdir
+WORKDIR /app
+
+# Copy pnpm files
+COPY package.json pnpm-lock.yaml /app/
 
 # Install dependencies
-COPY package*.json ./
-COPY pnpm-*.yaml ./
-RUN pnpm i --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
-# Bundle app source
-COPY . .
+# Copy other files
+COPY . /app
 
-# TypeScript
+# Build code
 RUN pnpm build
 
 
-FROM node:lts-alpine
+# Prod depedencies steps
+FROM docker.io/library/node:16-alpine as dep
+
+# Install pnpm
+RUN npm install -g pnpm@latest
+
+# Set workdir
+WORKDIR /app
+
+# Copy pnpm files
+COPY package.json pnpm-lock.yaml /app/
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile --prod
+
+
+# Production stage
+FROM gcr.io/distroless/nodejs:14
 
 # Set ARG
 ARG PORT=3000
@@ -28,22 +45,15 @@ ARG PORT=3000
 # Set env
 ENV PORT=$PORT
 
-# Create app directory
-WORKDIR /usr/src/app
+# Copy needed files from build stage
+COPY --from=dep /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist
 
-# Install pnpm
-RUN apk --no-cache add curl && \
-			curl -L https://unpkg.com/@pnpm/self-installer | node && \
-			pnpm config set store-dir ~/.pnpm-store
+# Set workdir
+WORKDIR /app
 
-# Install dependencies
-COPY package*.json ./
-COPY pnpm-*.yaml ./
-RUN pnpm i --frozen-lockfile -P && \
-			pnpm add --global pm2
-
-# Copy builded code
-COPY --from=build /usr/src/app/build .
-
+# Expose port
 EXPOSE $PORT
-CMD [ "pm2-runtime", "app.js" ]
+
+# Run
+CMD [ "dist/app" ]
