@@ -1,8 +1,7 @@
 {
-	"extends": "@tsconfig/node12/tsconfig.json",
-
-	"compilerOptions": {
-		"rootDir": "./src",
-		"outDir": "./build"
-	}
+  "extends": "@tsconfig/node12/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  }
 }
