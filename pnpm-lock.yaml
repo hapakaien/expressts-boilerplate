@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@tsconfig/node12': ^1.0.8
+  '@tsconfig/node14': ^1.0.1
   '@types/compression': ^1.7.0
   '@types/express': ^4.17.12
   '@types/jest': ^26.0.23
@@ -31,7 +31,7 @@ dependencies:
   helmet: 4.6.0
 
 devDependencies:
-  '@tsconfig/node12': 1.0.8
+  '@tsconfig/node14': 1.0.1
   '@types/express': 4.17.12
   '@types/jest': 26.0.23
   '@types/node': 14.17.3
@@ -668,8 +668,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /@tsconfig/node12/1.0.8:
-    resolution: {integrity: sha512-LM6XwBhjZRls1qJGpiM/It09SntEwe9M0riXRfQ9s6XlJQG0JPGl92ET18LtGeYh/GuOtafIXqwZeqLOd0FNFQ==}
+  /@tsconfig/node14/1.0.1:
+    resolution: {integrity: sha512-509r2+yARFfHHE7T6Puu2jjkoycftovhXRqW328PDXTVGKihlb1P8Z9mMZH04ebyajfRY7dedfGynlrFHJUQCg==}
     dev: true
 
   /@types/babel__core/7.1.14:
