@@ -1,5 +1,7 @@
 {
   "extends": "@tsconfig/node14/tsconfig.json",
+  "include": ["./**/*", "./**/.*"],
+  "exclude": ["./dist/**/*"],
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
