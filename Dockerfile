@@ -1,5 +1,5 @@
 # Build stage
-FROM docker.io/library/node:14-alpine as build
+FROM docker.io/library/node:16-alpine as build
 
 # Install pnpm
 RUN npm install -g pnpm@latest
@@ -21,7 +21,7 @@ RUN pnpm build
 
 
 # Prod depedencies steps
-FROM docker.io/library/node:14-alpine as dep
+FROM docker.io/library/node:16-alpine as dep
 
 # Install pnpm
 RUN npm install -g pnpm@latest
